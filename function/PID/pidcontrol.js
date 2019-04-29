@@ -30,12 +30,12 @@ module.exports = function(RED) {
                 node.ctr.setTarget(tgt);
                 this.status({fill:"blue",shape:"dot",text:"set point:"+tgt});
             }
-            else if (!isNaN(msg.payload)) {
+            //else if (!isNaN(msg.payload)) {
                 msg.payload = node.ctr.update(Number(msg.payload));
                 msg.topic = "pid";
                 node.send(msg);
-            }            
-            else { node.warn("Non numeric input"); }
+            //}            
+            //else { node.warn("Non numeric input"); }
             
         });
     }
