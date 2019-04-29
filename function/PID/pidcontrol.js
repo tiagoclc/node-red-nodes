@@ -16,6 +16,15 @@ module.exports = function(RED) {
         var tgt = node.target;
 
         this.on("input",function(msg) {
+            if (msg.hasOwnProperty('kp')) {
+               node.kp = Number(msg.kp);
+            }
+            if (msg.hasOwnProperty('ki')) {
+               node.ki = Number(msg.ki);
+            }
+            if (msg.hasOwnProperty('kd')) {
+               node.kd = Number(msg.kd);
+            }
             if (msg.hasOwnProperty("setpoint")) {
                 tgt = Number(msg.setpoint);
                 node.ctr.setTarget(tgt);
@@ -25,8 +34,9 @@ module.exports = function(RED) {
                 msg.payload = node.ctr.update(Number(msg.payload));
                 msg.topic = "pid";
                 node.send(msg);
-            }
+            }            
             else { node.warn("Non numeric input"); }
+            
         });
     }
     RED.nodes.registerType("PID control",PIDcontrolNode);
